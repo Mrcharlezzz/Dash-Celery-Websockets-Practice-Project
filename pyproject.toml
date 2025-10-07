@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dash-celery-websockets-practice"
+version = "0.1.0"
+description = "Dash frontend with Celery background processing sample project."
+readme = "README.md"
+authors = [{ name = "Carlos Manuel" }]
+requires-python = ">=3.10"
+dependencies = [
+    "dash>=2.14,<3.0",
+    "celery>=5.3,<6.0",
+    "redis>=5.0,<6.0",
+    "pydantic>=2.4,<3.0",
+    "fastapi>=0.110,<1.0",
+    "uvicorn[standard]>=0.24,<1.0",
+    "requests>=2.31,<3.0"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Framework :: Dash",
+    "Framework :: Celery",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.3",
+    "ruff>=0.2.0",
+    "mypy>=1.8",
+    "pytest>=7.4",
+    "pytest-dash>=2.0",
+    "types-redis>=4.6.0.20240106"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+skip-string-normalization = false
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+extend-select = ["B", "BLE", "C4", "I", "N", "PL", "Q", "RET", "RUF", "UP"]
+ignore = ["A003"]
+src = ["."]
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+    "build",
+    "dist"
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["application", "domain", "infrastructure", "interfaces", "models"]
+combine-as-imports = true
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+pretty = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra"
+testpaths = ["tests"]
